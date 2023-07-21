@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList</title>
+</head>
+ 
+<body>
+ 
+    <form th:action="@{/todo/create}" method="post">
+        <h1>TODO List</h1>
+        <label for="todo-desc">새 할일: <input type="text" id="todo-desc" name="todo-desc"></label>
+        <input type="submit" value="생성">
+    </form>
+ 
+    <form>
+        <hr> <b style="font-size: 18px">ToDo</b>
+        <div th:each="todo: ${todoList}">
+            <div th:if="${todo.done} == false">
+                <span>[[${todo.content}]]</span> 
+ 
+                <div>
+                    <form th:action="@{/todo/{id}/update (id=${todo.id})}" method="post" style="display:inline-block;">
+                        <input type="submit" value="완료"></form>
+                    <form th:action="@{/todo/{id}/delete (id=${todo.id})}" method="post" style="display:inline-block;">
+                        <input type="submit" value="삭제"></form>
+                </div>
+            </div>
+        </div>
+        <hr> <b style="font-size: 18px">Done</b>
+        <div th:each="todo: ${todoList}">
+            <div th:if="${todo.done} == true">
+                <span>[[${todo.content}]]</span> 
+ 
+                <div>
+                    <form th:action="@{/todo/{id}/update (id=${todo.id})}" method="post" style="display:inline-block;">
+                        <input type="submit" value="취소"></form>
+                    <form th:action="@{/todo/{id}/delete (id=${todo.id})}" method="post" style="display:inline-block;">
+                        <input type="submit" value="삭제"></form>
+                </div>
+            </div>
+        </div>
+    </form>
+ 
+</body>
+</html>
